@@ -230,7 +230,12 @@ export default {
     updateTicker(tickerName, price) {
       this.tickers
         .filter((t) => t.name === tickerName)
-        .forEach((t) => (t.price = price));
+        .forEach((t) => {
+          if (t === this.selectedTicker) {
+            this.graph.push(price);
+          }
+          t.price = price;
+        });
     },
     formatPrice(price) {
       if (price === "-") {
