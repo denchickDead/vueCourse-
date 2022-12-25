@@ -6,6 +6,7 @@ const socket = new WebSocket(
 );
 
 const AGGREGATE_INDEX = "5";
+const INVALID_SUB = "500";
 
 socket.addEventListener("message", (e) => {
   const {
@@ -13,6 +14,9 @@ socket.addEventListener("message", (e) => {
     FROMSYMBOL: currency,
     PRICE: newPrice,
   } = JSON.parse(e.data);
+  if (type === INVALID_SUB) {
+    return;
+  }
   if (type !== AGGREGATE_INDEX || newPrice === undefined) {
     return;
   }
